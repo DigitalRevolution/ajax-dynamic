@@ -1,0 +1,2 @@
+# dynamic
+WP-dynamic-plugin
