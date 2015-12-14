@@ -1,23 +1,22 @@
 <?php
 /**
- * Plugin Name: Ajax-Plugin
+ * Plugin Name: Dynamic Plugin
  * Plugin URI: []
- * Description: test ajax functionality on back end
+ * Description: Create multiple sections within single section of website. 
  * Version: 1.0.0
  * Author: Stephen Van Delinder
  * Author URI: 
  * License: GPL2
  */
 
-$plugin_url = WP_PLUGIN_URL . '/wp-dynamic-page'; 
+$plugin_url = WP_PLUGIN_URL . '/ajax-plugin'; 
 $options = array(''); 
 $section_count = get_option( 'section-count' ); 
-$section_count = ( empty( $section_count ) ) ? 0 : $section_count;
+$section_count = ( empty( $section_count ) ) ? 5 : $section_count;
 
-
-add_action( 'admin_enqueue_scripts', 'ajax_plugin_enqueue_scripts' );
-function ajax_plugin_enqueue_scripts() {
-	wp_enqueue_script( 'test', plugins_url( '/test.js', __FILE__ ), array('jquery'), '1.0', true );
+add_action( 'admin_enqueue_scripts', 'dynamic_plugin_enqueue_scripts' );
+function dynamic_plugin_enqueue_scripts() {
+	wp_enqueue_script( 'test', plugins_url( '/dynamic-plugin-javascript.js', __FILE__ ), array('jquery'), '1.0', true );
 	// localizes test.js 
 	wp_localize_script( 'test',               // handle for script to be localized
 						'ajaxtest',           // The name of the variable which will contain the data
@@ -35,15 +34,15 @@ function ajax_plugin_page_menu(){
  * This function adds the Dynamic Page Menu in Settings
 */
   add_options_page( 
-  	'Ajax Plugin',  	        // Page Title
-  	'Ajax Plugin', 			    // Menu Title 
+  	'Dynamic Plugin',  	        // Page Title
+  	'Dynamic Plugin', 		    // Menu Title 
   	'manage_options', 		    // Required Capabilities
-  	'ajax-plugin', 			    // Slug
-  	'ajax_plugin_options_page'	// Call back function, defined below
+  	'wp-dynamic-plugin', 		// Slug
+  	'dynamic_plugin_admin_page'	// Call back function, defined below
   );
 }
 
-function ajax_plugin_options_page(){ 
+function dynamic_plugin_admin_page(){ 
 
 	if ( !current_user_can( 'manage_options' ) ) {   // Verify capabilities 
 	wp_die('Please sign in as admin to use this feature.');  // Or die gracefully 
@@ -67,7 +66,7 @@ function ajax_plugin_options_page(){
 			$options['linktext'] = array('');
 			$options['link'] = array('');
 
-// Create the values 
+// Create the values from the form in the page-wrapper file
 
 			for($i=0; $i < $section_count; $i++){
 				$options['title'][$i] = esc_html( $_POST['section_'.$i.'_title']);
@@ -76,22 +75,35 @@ function ajax_plugin_options_page(){
 				$options['link'][$i] = $_POST['section_'.$i.'_link'];
 			}
 
-			$options['last_updated'] = time(); 			  // Make a note of the time	
-			update_option( 'ajax-plugin', $options ); // And update the database
-		} // end if
+// Make a note of the time
+
+			$options['last_updated'] = time(); 			 
+
+// And update the Database
+
+			update_option( 'ajax-plugin', $options ); 
+	
+		} // end if	
 	} // end isset if
 
-    $options = get_option( 'ajax-plugin' );       // load all the previous values from the DB
+// Reset the page by loading all values back from the DB
+
+    $options = get_option( 'ajax-plugin' );       	
 	if ( $options != '' ){
 		$title[]    = $options['title'];
 		$content[]  = $options['content']; 
 		$linktext[] = $options['linktext']; 
 		$text[]     = $options['link']; 
 	}
-	var_dump($options);
-	require( 'inc/ajax-menu-page-wrapper.php' );
+
+// Require the framework for the Admin Page
+
+	require( 'inc/dynamic-plugin-admin.php' );
+
 }
 
+
+// Server side event handler to create a new section
 
 add_action( 'wp_ajax_post_add_a_section', 'post_add_a_section' );
 function post_add_a_section() {
@@ -106,6 +118,9 @@ function post_add_a_section() {
 		exit();
 	}
 }
+
+// Server side event handler to remove section
+
 add_action( 'wp_ajax_post_remove_a_section', 'post_remove_a_section' );
 function post_remove_a_section() {
 	global $section_count;
@@ -119,4 +134,11 @@ function post_remove_a_section() {
 		exit();
 	}
 }
+
+// TODO: 
+// Create the shortcode
+// Build the Front End -- namespaced css
+// Ensure aherance to standards
+// Style the back end 
+
 ?>
