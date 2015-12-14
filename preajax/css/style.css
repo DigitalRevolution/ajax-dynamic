@@ -1,0 +1,120 @@
+/* all the time */
+
+.entry {
+  padding: 0px;
+}
+
+.jtab {
+	display: none;
+}
+
+.focus {
+  background: #fff;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.13);
+}
+
+.center{
+	margin: 0px auto;
+	text-align: center;
+}
+
+.grey{
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  min-height: 420px;
+  border-radius: 5px;
+  margin-left: 0% !important; 
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.13);*/
+}
+
+.site-block {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  background: url('../images/background.jpg');
+}
+@media(min-width: 850px){
+  .site-block{
+    padding: 30px;
+  }
+}
+
+#thinglinks li {
+  display: inline-block;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+#thinglinks li a {
+  font-size: 13px;
+  line-height: 17px;
+  color: #444;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
+
+}
+
+.dynamic_cta {
+}
+
+li a:hover {
+  background: #fff;
+}
+
+.jtab-image{
+  width: 40%; 
+  float: right; 
+  paddding: 10px;
+}
+
+/* MEDIA QUERIES START HERE */ 
+/* MEDIA QUERIES START HERE */ 
+/* MEDIA QUERIES START HERE */ 
+
+
+@media (min-width: 650px) {
+
+  #thinglinks li a {
+    font-size: 13px;
+    line-height: 15px;
+  }
+}
+
+@media (min-width: 850px) {
+
+  #thinglinks ul {
+    margin-top: 3%;
+  }
+  #thinglinks li {
+    margin: 0px;
+    display: block;
+  }
+  #thinglinks li a {
+    display: block;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 8px 0px 8px 8px;
+    text-align: left;
+    margin-left: 15px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px; 
+  }
+  .grey {
+    box-shadow: 5px 0px 10px rgba(0,0,0,0.13);
+  }
+  .focus {
+    box-shadow: -5px 0px 10px rgba(0,0,0,0.13);*/
+  }
+}
+
+@media (min-width: 1200px) {
+  #thinglinks li a {
+    padding: 10px 0px 9px 9px;
+    font-size: 19px;
+    line-height: 20px;
+  }
+}
+
