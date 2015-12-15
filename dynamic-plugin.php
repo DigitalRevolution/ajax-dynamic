@@ -108,14 +108,19 @@ function dynamic_plugin_admin_page(){
 add_action( 'wp_ajax_post_add_a_section', 'post_add_a_section' );
 function post_add_a_section() {
 	global $section_count;
-	$section_count++;
-	update_option( 'section-count', $section_count );
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-		echo $section_count;
+	$section_count = $section_count + 0;
+	if ($section_count < 9){ 
+		$section_count++;
+		update_option( 'section-count', $section_count );
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+			echo $section_count;
+			die();
+		} else {
+			exit();
+		}
+	} else {
+		echo 10; 
 		die();
-	}
-	else {
-		exit();
 	}
 }
 
@@ -124,21 +129,58 @@ function post_add_a_section() {
 add_action( 'wp_ajax_post_remove_a_section', 'post_remove_a_section' );
 function post_remove_a_section() {
 	global $section_count;
-	$section_count--;
-	update_option( 'section-count', $section_count );
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-		echo $section_count;
+	$section_count = $section_count + 0;
+	if ($section_count > 1){
+		$section_count--;
+		update_option( 'section-count', $section_count );
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+			echo $section_count;
+			die();
+		} else {
+			exit();
+		}
+	} else {
+		echo 0; 
 		die();
 	}
-	else {
-		exit();
-	}
 }
+
+function dynamic_plugin_shortcode( $atts ){
+	wp_enqueue_style( 'dynamic-app-style', plugins_url( 'ajax-plugin/css/style.css' ) ); 
+	wp_enqueue_script('dynamic-app-frontend', plugins_url( 'js/dynamic-app-frontend.js' , __FILE__ ), array( 'jQuery' ));	
+
+		$options = get_option( 'ajax-plugin' );
+
+		$title[]    = $options['title'];
+		$content[]  = $options['content']; 
+		$linktext[] = $options['linktext']; 
+		$text[]     = $options['link']; 
+	return '
+<div class = "container">
+  <div class = "left"> 
+  <ul>
+    <li class = "section"><a data-title = "red" href = "">Red</a> 
+    <li class = "section"><a data-title = "blue" href = "">Blue</a> 
+    <li class = "section"><a data-title = "green" href = "">Green</a> 
+  </div> 
+  <div id = "right">
+  </div> 
+</div> ';
+
+//require( 'inc/dynamic-plugin-frontend.php' );
+}
+add_shortcode( 'dynamic', 'dynamic_plugin_shortcode' );
+
+// [foobar]
+function foobar_func( $atts ){
+	return "foo and bar";
+}
+add_shortcode( 'foobar', 'foobar_func' );
 
 // TODO: 
 // Create the shortcode
 // Build the Front End -- namespaced css
-// Ensure aherance to standards
 // Style the back end 
+// Ensure aherance to standards
 
 ?>

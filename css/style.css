@@ -1,0 +1,28 @@
+.container {
+  width: 1200px;
+  margin: 0 auto; 
+  height: 400px; 
+}
+.left {
+  float: left;
+  width: 29%; 
+  display: inline; 
+  background: grey; 
+  height: 150px;
+}
+#right {
+  float:left;
+  width: 70%; 
+  display: inline; 
+  height: 150px;
+}
+.red {
+  background: red; 
+}
+.blue {
+  background: blue; 
+}
+.green {
+  background: green; 
+}
+

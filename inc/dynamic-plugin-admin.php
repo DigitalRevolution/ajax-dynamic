@@ -1,8 +1,14 @@
 <h2><?php esc_attr_e( '2 Columns Layout: static (px)', 'wp_admin_style' ); ?></h2>
+<div class="error form-invalid">In order to render correctly on the front end, this plugin must have between <b>one</b> and <b>nine</b> sections. <button class = "remove-invalid-error">Okay, Got it!</button></div>
 
 <style> 
 input.all-options {
 	width: 100%;
+}
+div.form-invalid {
+	display: none;
+	padding: 10px;
+	background-color: #ffa6a6;
 }
 </style> 
 
@@ -22,7 +28,6 @@ $section_count = ( empty( $section_count ) ) ? 0 : $section_count;
 					<h2 class="hndle"><span><?php esc_attr_e( 'Main Content Header', 'wp_admin_style' ); ?></span></h2>
 
 					<div class="inside">
-						<h3>Section Count: <span id = "section-count"><?php echo $section_count; ?></span></h3> 
 						<form id = "target" name = "ajax-dynamic-pluign" method = "post" action = "">
 						<input type = 'hidden' name = 'section_one_form_sumbitted' value = 'Y'> 
 						<input class='button-primary' type='submit' name='dynamic_content_save' value='Save All' />
@@ -89,6 +94,7 @@ $section_count = ( empty( $section_count ) ) ? 0 : $section_count;
 							$remove_section_button = '<a class = "remove-a-section" href="' . admin_url( 'admin-ajax.php?action=post_remove_a_section">' . '<button>Remove Section</button>' . '</a>');
 							echo $remove_section_button; 
 							?>
+							<h3>Section Count: <span id = "section-count"><?php echo $section_count; ?></span></h3> 
 							<p><?php esc_attr_e( 'Everything you see here, from the documentation to the code itself, was created by and for the community. WordPress is an Open Source project, which means there are hundreds of people all over the world working on it. (More than most commercial platforms.) It also means you are free to use it for anything from your cat’s home page to a Fortune 500 web site without paying anyone a license fee and a number of other important freedoms.', 'wp_admin_style' ); ?></p>
 						</div>
 						<!-- .inside -->
