@@ -1,5 +1,6 @@
 jQuery(document).ready(function(){
 
+divSizeFixer(); 
 jQuery('div#dynamic-data0').show();
 jQuery('.dynamic-left li:first-child').addClass('dynamic-focus');
 
@@ -10,8 +11,8 @@ jQuery('.dynamic-left li:first-child').addClass('dynamic-focus');
 	  jQuery('.dynamic-left li').removeClass('dynamic-focus');
 	  jQuery('div#dynamic-data'+title).show();
 	  jQuery(this).closest('li').addClass('dynamic-focus'); 
+	  divSizeFixer(); 
 	})
-	divSizeFixer(); 
 });
 
 jQuery(window).on('resize', function(){
@@ -21,9 +22,11 @@ jQuery(window).on('resize', function(){
 
 function divSizeFixer(){
 	if ( jQuery(document).width() > 850 ){
-		if ( jQuery('.dynamic-left').height() > jQuery('.dynamic-content-section').height() ){
+			console.log('width over 850');
+		if ( jQuery('.dynamic-left').height() > jQuery('#dynamic-right').height() ){
+			console.log('so far so good.');
 			var newHeight = jQuery('.dynamic-left').height();
-			jQuery('.dynamic-content-section').css('height', newHeight + 30);	
+			jQuery('.dynamic-content-section').css('min-height', newHeight + 30);	
 		}
 	}
 }
