@@ -1,28 +1,28 @@
-<article class = "site-block"> 
-	<div class = "container"> 
-		<h1>Dynamic Section</h1> 
-		<div class = "row">
-			<div class = "four columns" id = "thinglinks">
-				<ul> 
-					<?php for ($x = 0; $x < $section_count; $x++) { echo
-						"<li><a class = '' href = '" . $x . "'>" . stripslashes($options['title'][$x]) . "</a>";
-					}?>
-				</ul>
-			</div> 
-			<div class = "eight columns grey" id = "thing">
-				<?php for ($x = 0; $x < $section_count); $x++) { echo
-					"<div class = 'postab jtab'>
-						<h3 class = 'center'>" . stripslashes($options['title'][$x]) . "</h3>
-						<p>" . stripslashes($options['content'][$x]) . "</p>
-						<a class = 'dynamic_cta' href = '" . $options['link'][$x] . "'>
-							<p class = 'center'>
-								<button>" . stripslashes($options['linktext'][$x]) . "
-								</button>
-							</p>
-						</a>
-					 </div>"; 
-				}?>
-			</div>
-		</div>
+<article class = "dynamic-plugin-container"> 
+	<div class = "dynamic-container">
+		<div style = "overflow: hidden;" class = "row"> 
+	  <div class = "three columns dynamic-left"> 
+		  <ul>
+		  	<?php for ($x = 0; $x < $section_count; $x++) { echo 
+		    '<li class = "dynamic-section"><a data-title =' . $x . ' href = "">' . $options['title'][$x] . '</a></li>';
+		  	}?> 
+		  </ul> 
+	  </div> 
+	  <div id = "dynamic-right" class = "nine columns">
+	  	<?php for ($x = 0; $x < $section_count; $x++) { echo 
+	  		'<div id = "dynamic-data'. $x .'" class = "dynamic-content-section"><h2>' . $options['title'][$x] .'</h2><p class = "dynamic-content">'. $options['content'][$x] . '</p>'; 
+
+	  		if ( !empty( $options['link'][$x] ) && !empty( $options['linktext'][$x] ) ){ echo 
+		  		'<p class = "center"><a class = "" href = "' . $options['link'][$x] . '">
+					<button>' . stripslashes($options['linktext'][$x]) . '</button>
+				</a></p>
+			</div>';
+			} else {
+				echo 
+			'</div>';
+			}	
+	  	}?>
+	  </div> 
 	</div> 
 </article> 
+

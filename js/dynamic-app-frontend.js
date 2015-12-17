@@ -1,11 +1,29 @@
 jQuery(document).ready(function(){
 
-	alert('script running'); 
+jQuery('div#dynamic-data0').show();
+jQuery('.dynamic-left li:first-child').addClass('dynamic-focus');
 
-	jQuery('.section').on('click', 'a', function(e){
+	jQuery('.dynamic-section').on('click', 'a', function(e){
 	  e.preventDefault();
 	  var title = jQuery(this).data('title');
-	  jQuery('div#right').removeClass(); 
-	  jQuery('div#right').addClass(title); 
+	  jQuery('div#dynamic-right').children().hide();
+	  jQuery('.dynamic-left li').removeClass('dynamic-focus');
+	  jQuery('div#dynamic-data'+title).show();
+	  jQuery(this).closest('li').addClass('dynamic-focus'); 
 	})
+	divSizeFixer(); 
 });
+
+jQuery(window).on('resize', function(){
+	divSizeFixer(); 
+}); 
+
+
+function divSizeFixer(){
+	if ( jQuery(document).width() > 850 ){
+		if ( jQuery('.dynamic-left').height() > jQuery('.dynamic-content-section').height() ){
+			var newHeight = jQuery('.dynamic-left').height();
+			jQuery('.dynamic-content-section').css('height', newHeight + 30);	
+		}
+	}
+}

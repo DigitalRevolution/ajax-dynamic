@@ -149,25 +149,16 @@ function dynamic_plugin_shortcode( $atts ){
 	wp_enqueue_style( 'dynamic-app-style', plugins_url( 'ajax-plugin/css/style.css' ) ); 
 	wp_enqueue_script('dynamic-app-frontend', plugins_url( 'js/dynamic-app-frontend.js' , __FILE__ ), array( 'jQuery' ));	
 
+		$section_count = get_option( 'section-count' );
+		$section_count = (integer) $section_count;
 		$options = get_option( 'ajax-plugin' );
 
 		$title[]    = $options['title'];
 		$content[]  = $options['content']; 
 		$linktext[] = $options['linktext']; 
 		$text[]     = $options['link']; 
-	return '
-<div class = "container">
-  <div class = "left"> 
-  <ul>
-    <li class = "section"><a data-title = "red" href = "">Red</a> 
-    <li class = "section"><a data-title = "blue" href = "">Blue</a> 
-    <li class = "section"><a data-title = "green" href = "">Green</a> 
-  </div> 
-  <div id = "right">
-  </div> 
-</div> ';
 
-//require( 'inc/dynamic-plugin-frontend.php' );
+require( 'inc/dynamic-plugin-frontend.php' );
 }
 add_shortcode( 'dynamic', 'dynamic_plugin_shortcode' );
 
